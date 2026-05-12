@@ -420,13 +420,7 @@
 
     <script>
         const envelope = document.getElementById('envelope');
-
-        const particlesContainer =
-        document.getElementById('particles');
-
-        const bgMusic =
-        document.getElementById('bgMusic');
-
+        const particlesContainer = document.getElementById('particles');
         let isOpened = false;
 
         envelope.addEventListener('click', () => {
@@ -435,11 +429,13 @@
 
             envelope.classList.add('open');
 
-            bgMusic.volume = 0.4;
-
-            bgMusic.play().catch(() => {
-                console.log("Autoplay blocked");
-            });
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic) {
+                bgMusic.volume = 0.4;
+                bgMusic.play().catch((err) => {
+                    console.log("Autoplay blocked or audio failed:", err);
+                });
+            }
             
             setTimeout(() => {
                 envelope.classList.add('full-view');
