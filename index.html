@@ -420,7 +420,13 @@
 
     <script>
         const envelope = document.getElementById('envelope');
-        const particlesContainer = document.getElementById('particles');
+
+        const particlesContainer =
+        document.getElementById('particles');
+
+        const bgMusic =
+        document.getElementById('bgMusic');
+
         let isOpened = false;
 
         envelope.addEventListener('click', () => {
@@ -429,6 +435,12 @@
 
             envelope.classList.add('open');
 
+            bgMusic.volume = 0.4;
+
+            bgMusic.play().catch(() => {
+                console.log("Autoplay blocked");
+            });
+            
             setTimeout(() => {
                 envelope.classList.add('full-view');
                 startFlowerShower();
@@ -464,5 +476,10 @@
             }, (duration + delay) * 1000);
         }
     </script>
+
+    <audio id="bgMusic" loop>
+        <source src="piano.mp3" type="audio/mp3">
+    </audio>
+
 </body>
 </html>
