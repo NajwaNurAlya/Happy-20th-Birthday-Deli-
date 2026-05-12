@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Deli 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blush-pink: #f7c8d7;
+            --pastel-pink: #fce7ee;
+            --cream-ivory: #fffaf5;
+            --champagne-cream: #f8efe6;
+            --dusty-rose: #e9a0b3;
+            --text-color: #5c4149;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--champagne-cream));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            color: var(--text-color);
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--blush-pink) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(40px);
+            animation: float-glow 8s infinite alternate;
+            z-index: 1;
+        }
+        .glow-1 { top: 10%; left: 15%; }
+        .glow-2 { bottom: 10%; right: 15%; animation-delay: -4s; }
+
+        @keyframes float-glow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -40px) scale(1.1); }
+        }
+
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            z-index: 5;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 150;
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffdde1, #e9a0b3);
+            border-radius: 15px 0px 15px 0px;
+            box-shadow: 0 0 10px rgba(238, 156, 167, 0.4);
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .envelope-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 340px;
+            height: 240px;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.5s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translate(-50%, -55px);
+        }
+
+        .envelope-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e5d1be;
+            border-radius: 5px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            z-index: 1;
+            transition: opacity 1s ease;
+        }
+
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 320px;
+            height: 220px;
+            background-color: #fffdfa;
+            border-radius: 3px;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, border-radius 1s ease-in-out, box-shadow 1s ease-in-out;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            display: flex;
+            flex-direction: column;
+        }
+
+        .envelope-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .envelope-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 120px 170px;
+            border-color: transparent transparent var(--cream-ivory) var(--champagne-cream);
+            border-bottom-left-radius: 5px;
+        }
+
+        .envelope-front::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 120px 170px;
+            border-color: transparent var(--cream-ivory) var(--champagne-cream) transparent;
+            border-bottom-right-radius: 5px;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, 50% 50%, 100% 0);
+            background-color: #f1e2d3;
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.4s, opacity 1s ease 1s;
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            background: var(--dusty-rose);
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .ribbon::before {
+            content: '🤍';
+            font-size: 26px;
+        }
+
+        .click-text {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--dusty-rose);
+            opacity: 0.9;
+            transition: opacity 0.5s ease;
+            white-space: nowrap;
+            text-shadow: 0 2px 5px rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+        }
+
+        /* --- STATE: OPENING (Step 1) --- */
+        .envelope-wrapper.open {
+            cursor: default;
+        }
+        .envelope-wrapper.open:hover {
+            transform: translate(-50%, -50%);
+        }
+
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .ribbon {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .click-text {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translate(-50%, -180px);
+        }
+
+        /* --- STATE: FULL VIEW (Step 2) --- */
+        .envelope-wrapper.full-view .letter {
+            width: 90vw;
+            height: 85vh;
+            max-width: 700px;
+            transform: translate(-50%, -50%);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .envelope-wrapper.full-view .envelope-back,
+        .envelope-wrapper.full-view .envelope-front,
+        .envelope-wrapper.full-view .flap {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* LETTER CONTENT */
+        .letter-content {
+            opacity: 0;
+            padding: 60px 50px;
+            height: 100%;
+            overflow-y: auto;
+            transition: opacity 1s ease 0.8s;
+            scrollbar-width: thin;
+            scrollbar-color: var(--dusty-rose) transparent;
+            pointer-events: none;
+        }
+
+        .letter-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .letter-content::-webkit-scrollbar-thumb {
+            background-color: var(--dusty-rose);
+            border-radius: 10px;
+        }
+
+        .envelope-wrapper.full-view .letter-content {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            color: var(--dusty-rose);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #4a3a3f;
+            text-align: justify;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: right;
+            font-style: italic;
+            font-size: 1.4rem;
+        }
+
+        .decor {
+            text-align: center;
+            color: var(--blush-pink);
+            font-size: 1.5rem;
+            margin: 30px 0;
+            letter-spacing: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .envelope-wrapper {
+                width: 280px;
+                height: 200px;
+            }
+            .envelope-front::before, .envelope-front::after {
+                border-width: 100px 140px;
+            }
+            .letter {
+                width: 260px;
+                height: 180px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1.15rem;
+                text-align: left;
+            }
+            .envelope-wrapper.full-view .letter {
+                width: 95vw;
+                height: 90vh;
+            }
+            .letter-content {
+                padding: 40px 25px;
+            }
+            .signature {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="scene">
+        <div id="particles"></div>
+
+        <div class="envelope-wrapper" id="envelope">
+            <div class="envelope-back"></div>
+            
+            <div class="letter" id="letter">
+                <div class="letter-content">
+                    <h1>Happy 20th Birthday, Deli 🤍</h1>
+                    <p>20 years old bgtt yah sekarang… sounds so big, so beautiful, so grown. Jujur aku aja masih suka ga nyangka kalo kita udah sejauh ini. Dari SMA yang isinya tugas, drama kecil, capek-capekan sekolah, ketawa random, sampai sekarang kita udah jalan di hidup masing-masing, ga satu sekolah lagi bahkan kelas, beda kesibukan… tapi somehow, kamu tetep selalu ada jadi rumah yang sama buat aku.</p>
+                    
+                    <p>Aku selama ini selalu percaya kalo ga semua orang datang untuk bener bener stay tinggal di hidup kita. Banyak yang hadir cuma sebentar, cuma lewat. But u wkwkwk deli jujur ga nyangka kalo kita bisa tetep saling nge reach out satu sama lain semoga until we die ya...</p>
+
+                    <p>Thank you ya… for every little thing yang mungkin bahkan kamu sendiri ga sadar pernah kamu lakuin buat aku. Makasih karena selalu datang. Makasih karena setiap aku bilang “aku gapapa,” kamu tetep ngerti kalo sebenarnya aku lagi butuh ditemenin. Makasih karena sejauh apa pun jaraknya, sesibuk apa pun harinya, kamu selalu nyempetin buat ada di samping aku padahal kamu sendiri juga sometimes ga okayy tapi kamu tetep hadir di samping aku walaupun aku ga cerita juga tapi I think kamu selalu berhasil nangkep if I don’t feel okay. Sometimes I wonder, what if di hidup I ga ketemu u waktu SMA dulu.</p>
+
+                    <p>5 tahun ternyata udah ahahaha bukan waktu yang sebentar ya... Dan lucunya, setelah semua waktu itu, aku masih tetep nyaman cerita apa aja ke kamu. Masih tetep nyari kamu pas dunia lagi berat. Masih tetep ngerasa tenang cuma karena tahu “oh ada deli, dan mereka semua yang I sayang”</p>
+
+                    <p>You are one of the softest parts of my life, Del. Kayaa apayaa tempat pulang yang ga pernah nge-judge GAA DENG ada judge nya juga biar sadar si kadang kadang I agree deh sometimes butuh judge jg, tempat istirahat waktu lagi cape dengan semua yg I gabisa ceritain. Dan I hope u know that hadirnya u itu berarti banget buat I, ga cuma I bahkan. More than words could ever explain.</p>
+
+                    <div class="decor">✧ ✧ ✧</div>
+
+                    <p>Di umur kamu yang sekarang, aku cuma mau doa yang paling baik buat kamu. Semoga hidup kamu pelan-pelan jadi lebih ringan. Semoga semua hal yang kamu perjuangin ketemu jalannya satu-satu. Semoga kamu selalu dikelilingi orang-orang yang sayang kamu setulus kamu nyayangin orang lain. Dan semoga nanti, di masa depan yang lagi kamu kejar sekarang, kamu bisa lihat ke belakang dan bangga sama diri kamu sendiri karena ternyata kamu berhasil bertahan sejauh ini.</p>
+
+                    <p>Please stay soft. Stay kind. Stay Deli yang selalu punya hati hangat buat orang-orang di sekitarnya. Dunia kadang terlalu keras, jadi jangan lupa istirahat kalo cape yaa deli. Jangan simpan semuanya sendirian.</p>
+
+                    <p>And if someday hidup terasa terlalu ramai, terlalu berat, atau terlalu sepi… I hope you remember that you still have me too. Always.</p>
+
+                    <p>Happy birthday once again to my favorite person from my high school days, to my safest friend, to someone who quietly became one of the most important people in my life.</p>
+
+                    <p class="signature">
+                        Thank you for staying.<br>
+                        Thank you for existing.<br>
+                        Thank you for being you, Deli 🤍
+                    </p>
+                </div>
+            </div>
+
+            <div class="envelope-front"></div>
+            <div class="flap" id="flap"></div>
+            <div class="ribbon" id="ribbon"></div>
+            
+            <div class="click-text">click to open 🤍</div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const particlesContainer = document.getElementById('particles');
+        let isOpened = false;
+
+        envelope.addEventListener('click', () => {
+            if (isOpened) return;
+            isOpened = true;
+
+            envelope.classList.add('open');
+
+            setTimeout(() => {
+                envelope.classList.add('full-view');
+                startFlowerShower();
+            }, 1000); 
+        });
+
+        function startFlowerShower() {
+            setInterval(createPetal, 300);
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            const size = Math.random() * 15 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 5 + 6; // 6 to 11 seconds
+            const delay = Math.random() * 2;
+            
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.left = `${left}vw`;
+            petal.style.animationDuration = `${duration}s`;
+            petal.style.animationDelay = `${delay}s`;
+            
+            const colors = ['#f7c8d7', '#e9a0b3', '#ffdde1', '#ee9ca7'];
+            petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            particlesContainer.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, (duration + delay) * 1000);
+        }
+    </script>
+</body>
+</html>
